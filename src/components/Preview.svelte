@@ -2,12 +2,7 @@
   export let htmlCode = '';
   export let cssCode = '';
 
-  $: fullCode = `
-    <style>
-      ${cssCode}
-    </style>
-    ${htmlCode}
-  `;
+  $: fullCode = htmlCode + (cssCode ? ('<style>' + cssCode + '</style>') : '');
 </script>
 
 <style>

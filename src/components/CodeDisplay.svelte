@@ -45,5 +45,6 @@
 <style>
   .content {
     text-align: left;
+    width: auto;
   }
 </style>

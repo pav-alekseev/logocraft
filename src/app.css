@@ -99,6 +99,13 @@ button:focus-visible {
 
 .paragraph {
     margin-top: 32px;
+
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.paragraph.visible {
+    opacity: 1;
 }
 
 .title {
@@ -109,6 +116,20 @@ button:focus-visible {
 
     margin-bottom: 16px;
 }
+
+.title.blinking {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1; /* Текст видим */
+    }
+    50% {
+        opacity: 0.2; /* Текст невидим */
+    }
+}
+
 
 .title.fancy {
     background: linear-gradient(to right, #f32170, #ff6b08,#cf23cf, #eedd44);

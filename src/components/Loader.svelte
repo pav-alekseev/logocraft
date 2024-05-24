@@ -1,17 +1,19 @@
 <script lang="ts">
-  export let size: string = '50px';
+  export let size: string = '12px';
 </script>
 
 <div class="loader" style="width: {size}; height: {size};"></div>
 
 <style>
   .loader {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #3498db;
+    display: inline-block;
+
+    border: 4px solid var(--accent-color);
+    border-top: 4px solid transparent;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 2s linear infinite;
+    width: 12px;
+    height: 12px;
+    animation: spin 1s linear infinite;
   }
 
   @keyframes spin {
