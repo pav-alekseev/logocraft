@@ -7,7 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@codemirror/lang-css': path.resolve(__dirname, 'node_modules/@codemirror/lang-css'),
-      '@uiw/codemirror-theme-darcula': path.resolve(__dirname, 'node_modules/@uiw/codemirror-theme-darcula')
+      // '@uiw/codemirror-theme-darcula': path.resolve(__dirname, 'node_modules/@uiw/codemirror-theme-darcula')
     }
   }
 });

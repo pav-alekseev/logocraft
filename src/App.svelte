@@ -68,7 +68,7 @@ You are the world's best expert full-stack programmer, recognized as a Google L5
     const { prompt } = event.detail;
     // Пожалуйста, не забирайте наш ключик :).
     const PARTITIONED_KEY = ['s', 'k', '-pro','j-vM1GG','8k0SBfYwdzTfJuWT3Blb', 'kFJvoamp', 'lonuCnWWZ98iMWl'].join(',');
-    const apiKey = PARTITIONED_KEY;
+    const apiKey = 'sk-proj-Q1aeF3J1ek2Qu1FEBsWCT3BlbkFJaC68gyKlco13ogpQG9ly';
     loading = true;
 
     const openai = new OpenAI({
@@ -120,7 +120,7 @@ You are the world's best expert full-stack programmer, recognized as a Google L5
 
 <main>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
   <Logo />
