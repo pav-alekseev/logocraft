@@ -1,13 +1,17 @@
 <script>
     let previewIndex = 1;
+    let customImage;
 
     const currentUrl = window.location.href;
     const url = new URL(currentUrl);
     const params = new URLSearchParams(url.search);
 
-    const paramName = 'image';
-    if (params.has(paramName)) {
-        previewIndex = params.get(paramName);
+    if (params.has('image')) {
+        previewIndex = params.get('image');
+    }
+
+    if (params.has('custom')) {
+        customImage = params.get('custom');
     }
 </script>
 
@@ -47,4 +51,6 @@
     }
 </style>
 
-<div class="reference image-{previewIndex}"/>
+<div class="reference image-{previewIndex}"
+    style="{customImage ? `background-image: url(${customImage})` : ''}"
+></div>
