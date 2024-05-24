@@ -67,7 +67,6 @@ You are the world's best expert full-stack programmer, recognized as a Google L5
   async function handleChatSubmit(event: CustomEvent<{ prompt: string }>) {
     const { prompt } = event.detail;
     // Пожалуйста, не забирайте наш ключик :).
-    const test = 'sk-proj-4AwWTzAGrKycqJGbfSM8T3BlbkFJUPxbjIIxX9M1cfQM3Fwz';
     loading = true;
 
     const openai = new OpenAI({
