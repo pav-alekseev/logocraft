@@ -1,16 +1,23 @@
 <script lang="ts">
+  import OpenAI from 'openai';
+
+  import Logo from './components/Logo.svelte';
   import ChatInput from './components/ChatInput.svelte';
   import StyleInput from './components/StyleInput.svelte';
   import CodeDisplay from './components/CodeDisplay.svelte';
+  import Reference from './components/Reference.svelte';
   import Preview from './components/Preview.svelte';
-  import Loader from './components/Loader.svelte';
 
   type ChatGptResponse = {
     html: string;
-    css: string;
+    cleanHtmlCode: string;
   };
 
-  let chatGptResponse: ChatGptResponse = { html: '', css: '' };
+  const SYSTEM_PROMPT = `
+  Тебе нужно сформировать валидный html-код, содержащий CSS, Javascript, SVG и ничего больше.
+  `;
+
+  let chatGptResponse: ChatGptResponse = { html: '', cleanHtmlCode: '' };
   let customStyles: string = '';
   let htmlCode: string = '';
   let cssCode: string = '';
@@ -18,36 +25,52 @@
 
   async function handleChatSubmit(event: CustomEvent<{ prompt: string }>) {
     const { prompt } = event.detail;
+    // Пожалуйста, не забирайте наш ключик :).
     const apiKey = 'sk-proj-FWcuDCeUKrnWZ5RwtMNWT3BlbkFJ17HiEJocE0Cu6SwkGxbL';
     loading = true;
 
+    const openai = new OpenAI({
+      apiKey,
+      dangerouslyAllowBrowser: true,
+    });
+
+    chatGptResponse = {
+      html: '',
+      cleanHtmlCode:''
+    };
+
     try {
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`,
-        },
-        body: JSON.stringify({
-          model: 'gpt-4o',
-          messages: [{ role: 'user', content: prompt }],
-          max_tokens: 4000,
-        }),
+      const stream = await openai.chat.completions.create({
+        model: 'gpt-4o',
+        messages: [{ role: 'user', content: SYSTEM_PROMPT + prompt }],
+        stream: true,
       });
 
-      const data = await response.json();
-      const generatedText = data.choices[0].message.content;
+      for await (const chunk of stream) {
+        const totalText = chatGptResponse.html + chunk.choices[0]?.delta?.content || '';
 
-      const cssMatch = generatedText.match(/<style[^>]*>([\s\S]*?)<\/style>/i);
-      const cssContent = cssMatch ? cssMatch[1].trim() : '';
+        chatGptResponse = {
+          html: totalText,
+          cleanHtmlCode: '',
+        };
 
-      const htmlMatch = generatedText.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
-      const htmlContent = htmlMatch ? htmlMatch[1].replace(/<style[^>]*>[\s\S]*?<\/style>/i, '').trim() : '';
+        chatGptResponse.cleanHtmlCode = '123123';
+      }
 
-      chatGptResponse = {
-        html: htmlContent,
-        css: cssContent,
-      };
+      // ```html
+
+      //   const generatedText = data.choices[0].message.content;
+      //
+      // const cssMatch = generatedText.match(/<style[^>]*>([\s\S]*?)<\/style>/i);
+      // const cssContent = cssMatch ? cssMatch[1].trim() : '';
+      //
+      // const htmlMatch = generatedText.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+      // const htmlContent = htmlMatch ? htmlMatch[1].replace(/<style[^>]*>[\s\S]*?<\/style>/i, '').trim() : '';
+      //
+      // chatGptResponse = {
+      //   html: htmlContent,
+      //   css: cssContent,
+      // };
     } catch (error) {
       console.error('Error fetching response from server:', error);
     } finally {
@@ -61,26 +84,74 @@
   }
 
   $: htmlCode = chatGptResponse.html || '';
-  $: cssCode = chatGptResponse.css + customStyles;
+  $: cssCode = customStyles;
 </script>
 
 <main>
-  <ChatInput on:submit={handleChatSubmit} />
-  <StyleInput on:submit={handleStyleSubmit} />
-  {#if loading}
-    <Loader />
-  {:else}
-    <CodeDisplay {htmlCode} {cssCode} />
-    <Preview {htmlCode} {cssCode} />
-  {/if}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  <Logo />
+
+  <div class="layout">
+    <div class="column main">
+      <div>
+        <div class="block">
+          <div class="title">Запрос к нейросети:</div>
+          <ChatInput on:submit={handleChatSubmit} />
+        </div>
+
+        <div class="block">
+          <div class="title">Дополнительный CSS:</div>
+          <StyleInput on:change={handleStyleSubmit}/>
+        </div>
+      </div>
+
+      <div class="paragraph">
+        <div class="title fancy">Модель сгенерировала:</div>
+        <CodeDisplay {htmlCode} />
+      </div>
+    </div>
+
+    <div class="column">
+      <div class="sticky">
+        <div class="block">
+          <div class="title">Таймер: 04:03</div>
+        </div>
+
+        <div class="block">
+          <div class="title">Эталон:</div>
+          <Reference/>
+        </div>
+
+        <div class="block">
+          <div class="title">Результат:</div>
+          <Preview {htmlCode} {cssCode} />
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </main>
 
 <style>
-  main {
-    /* display: flex; */
-    flex-direction: column;
-    align-items: center;
-    gap: 1em;
-    width: 100%;
+  .layout {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .column.main {
+    flex-grow: 1;
+  }
+
+  .column + .column {
+    margin-left: 64px;
+  }
+
+  .sticky {
+    position: sticky;
+    top: 16px;
   }
 </style>

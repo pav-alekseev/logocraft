@@ -6,10 +6,10 @@
   import { css } from '@codemirror/lang-css';
 
   let styles: string = '';
-  const dispatch = createEventDispatcher<{ submit: { styles: string } }>();
+  const dispatch = createEventDispatcher<{ change: { styles: string } }>();
 
   function submitStyles() {
-    dispatch('submit', { styles });
+    dispatch('change', { styles });
   }
 </script>
 

@@ -9,7 +9,17 @@
   }
 </script>
 
+<style>
+  .button {
+    margin-top: 16px;
+  }
+
+  .button:hover {
+    opacity: 0.95;
+  }
+</style>
+
 <div>
-  <textarea bind:value={prompt} placeholder="Введите запрос к ChatGPT"></textarea>
-  <button on:click={submitPrompt}>Отправить</button>
+  <textarea class="pane editable" bind:value={prompt} placeholder="Сгенерируй рисунок, который ..."></textarea>
+  <button class="button" on:click={submitPrompt}>Сгенерировать</button>
 </div>
