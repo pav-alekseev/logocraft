@@ -20,6 +20,6 @@
 </style>
 
 <div>
-  <textarea class="pane editable" bind:value={prompt} placeholder="Сгенерируй рисунок, который ..."></textarea>
+  <textarea on:submit={submitPrompt} class="pane editable" bind:value={prompt} placeholder="Сгенерируй квадрат, расположенный ..."></textarea>
   <button class="button" on:click={submitPrompt}>Сгенерировать</button>
 </div>

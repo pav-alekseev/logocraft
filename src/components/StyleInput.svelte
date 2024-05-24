@@ -14,14 +14,20 @@
   }
 </script>
 
+<style>
+  .content {
+    width: auto;
+  }
+</style>
+
 <div>
   <CodeMirror
     on:change={submitStyles}
     bind:value={styles}
-    class="pane"
+    class="pane auto-width"
     lang={css()}
     theme={oneDark}
-    placeholder={"Введите стили"}
+    placeholder={"body {}"}
     useTab={true}
   ></CodeMirror>
 </div>
