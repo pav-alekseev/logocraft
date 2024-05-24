@@ -184,9 +184,9 @@ You are the world's best expert full-stack programmer, recognized as a Google L5
           </div>
         </div>
 
-        <div class="block">
-          <div class="title">Таймер: 04:03</div>
-        </div>
+<!--        <div class="block">-->
+<!--          <div class="title">Таймер: 04:03</div>-->
+<!--        </div>-->
       </div>
     </div>
   </div>
