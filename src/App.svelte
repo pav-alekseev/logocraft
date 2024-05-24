@@ -63,10 +63,18 @@ You are the world's best expert full-stack programmer, recognized as a Google L5
     }
   }
 
+  let apiKey;
+  const currentUrl = window.location.href;
+  const url = new URL(currentUrl);
+  const params = new URLSearchParams(url.search);
+
+  if (params.has('apiKey')) {
+    apiKey = params.get('apiKey');
+  }
+
 
   async function handleChatSubmit(event: CustomEvent<{ prompt: string }>) {
     const { prompt } = event.detail;
-    // Пожалуйста, не забирайте наш ключик :).
     loading = true;
 
     const openai = new OpenAI({
