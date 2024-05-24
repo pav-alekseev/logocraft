@@ -1,13 +1,13 @@
 <script lang="ts">
-  import OpenAI from 'openai';
+  import OpenAI from "openai";
 
-  import Logo from './components/Logo.svelte';
-  import ChatInput from './components/ChatInput.svelte';
-  import StyleInput from './components/StyleInput.svelte';
-  import CodeDisplay from './components/CodeDisplay.svelte';
-  import Reference from './components/Reference.svelte';
-  import Loader from './components/Loader.svelte';
-  import Preview from './components/Preview.svelte';
+  import Logo from "./components/Logo.svelte";
+  import ChatInput from "./components/ChatInput.svelte";
+  import StyleInput from "./components/StyleInput.svelte";
+  import CodeDisplay from "./components/CodeDisplay.svelte";
+  import Reference from "./components/Reference.svelte";
+  import Loader from "./components/Loader.svelte";
+  import Preview from "./components/Preview.svelte";
 
   type ChatGptResponse = {
     html: string;
@@ -44,10 +44,10 @@ You are the world's best expert full-stack programmer, recognized as a Google L5
 Внутри шестиугольника по центру находится белая буква T. Шрифт буквы T – Arial. У буквы T закругленные края. Буква T в 1.5 раза меньше шестиугольника
   `;
 
-  let chatGptResponse: ChatGptResponse = { html: '', cleanHtmlCode: '' };
-  let customStyles: string = '';
-  let htmlCode: string = '';
-  let cssCode: string = '';
+  let chatGptResponse: ChatGptResponse = { html: "", cleanHtmlCode: "" };
+  let customStyles: string = "";
+  let htmlCode: string = "";
+  let cssCode: string = "";
   let loading: boolean = false;
 
   function extractHtmlContent(input: string) {
@@ -59,7 +59,7 @@ You are the world's best expert full-stack programmer, recognized as a Google L5
     if (match) {
       return match[1].trim();
     } else {
-      return '';
+      return "";
     }
   }
 
@@ -83,20 +83,20 @@ You are the world's best expert full-stack programmer, recognized as a Google L5
     });
 
     chatGptResponse = {
-      html: '',
-      cleanHtmlCode:''
+      html: "",
+      cleanHtmlCode: "",
     };
 
     try {
       const stream = await openai.chat.completions.create({
-        model: 'gpt-4o',
-        messages: [{ role: 'user', content: SYSTEM_PROMPT + prompt }],
+        model: "gpt-4o",
+        messages: [{ role: "user", content: SYSTEM_PROMPT + prompt }],
         stream: true,
       });
 
       for await (const chunk of stream) {
         const chunkContent = chunk.choices[0]?.delta?.content;
-        if (typeof chunkContent === 'undefined') {
+        if (typeof chunkContent === "undefined") {
           continue;
         }
 
@@ -108,7 +108,7 @@ You are the world's best expert full-stack programmer, recognized as a Google L5
         };
       }
     } catch (error) {
-      console.error('Error fetching response from server:', error);
+      console.error("Error fetching response from server:", error);
     } finally {
       loading = false;
     }
@@ -119,15 +119,28 @@ You are the world's best expert full-stack programmer, recognized as a Google L5
     customStyles = styles;
   }
 
-  $: htmlCode = chatGptResponse.html || '';
-  $: cleanHtmlCode = chatGptResponse.cleanHtmlCode || '';
+  $: htmlCode = chatGptResponse.cleanHtmlCode || "";
+  $: cleanHtmlCode = chatGptResponse.cleanHtmlCode || "";
   $: cssCode = customStyles;
 </script>
 
 <main>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin="anonymous"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet"
+  />
+
 
   <Logo />
 
@@ -140,26 +153,22 @@ You are the world's best expert full-stack programmer, recognized as a Google L5
         </div>
       </div>
 
-        <div
-                id="gpt-result"
-                class="paragraph"
-                class:visible={htmlCode}
-        >
-          <div class="title fancy">Модель сгенерировала:</div>
-          <CodeDisplay {htmlCode} />
-        </div>
+      <div id="gpt-result" class="paragraph" class:visible={htmlCode}>
+        <div class="title fancy">Модель сгенерировала:</div>
+        <CodeDisplay {htmlCode} />
+      </div>
 
-        <div class="paragraph" class:visible={htmlCode && !loading}>
-          <div class="title">Дополнительный CSS:</div>
-          <StyleInput on:change={handleStyleSubmit}/>
-        </div>
+      <div class="paragraph" class:visible={htmlCode && !loading}>
+        <div class="title">Дополнительный CSS:</div>
+        <StyleInput on:change={handleStyleSubmit} />
+      </div>
     </div>
 
     <div class="column">
       <div class="sticky">
         <div class="block">
           <div class="title">Эталон:</div>
-          <Reference/>
+          <Reference />
         </div>
 
         <div class="block">
@@ -169,7 +178,6 @@ You are the world's best expert full-stack programmer, recognized as a Google L5
             {#if loading}
               <Loader />
             {/if}
-
           </div>
           <div class:waiting={loading}>
             <Preview htmlCode={cleanHtmlCode} {cssCode} />
@@ -182,8 +190,6 @@ You are the world's best expert full-stack programmer, recognized as a Google L5
       </div>
     </div>
   </div>
-
-
 </main>
 
 <style>

@@ -1,44 +1,38 @@
 <script lang="ts">
   import { onMount, afterUpdate } from 'svelte';
-  import SvelteMarkdown from "svelte-markdown";
   import Prism from 'prismjs';
   import 'prismjs/components/prism-markup';
   import 'prismjs/components/prism-css';
 
   export let htmlCode: string = '';
 
-  function typeText(element: HTMLElement, text: string) {
-    element.innerText = text;
-    Prism.highlightAll();
-  }
-
-  function startTyping() {
-    const htmlElement = document.querySelector('.language-html') as HTMLElement;
-
+  function highlightCode() {
+    const htmlElement = document.querySelector('.language-html code') as HTMLElement;
     if (htmlElement) {
-      htmlElement.innerHTML = '';
-      typeText(htmlElement, htmlCode);
+      htmlElement.textContent = htmlCode;
+      Prism.highlightElement(htmlElement);
     }
   }
 
   $: {
     if (htmlCode) {
-      startTyping();
+      highlightCode();
     }
   }
 
   onMount(() => {
-    startTyping();
+    highlightCode();
   });
 
   afterUpdate(() => {
-    Prism.highlightAll();
+    console.log(htmlCode);
+    highlightCode();
   });
 </script>
 
 <div class="block">
-  <div class="pane content language-html">
-<!--    <SvelteMarkdown source={htmlCode} />-->
+  <div class="pane content">
+    <pre class="language-html"><code></code></pre>
   </div>
 </div>
 
