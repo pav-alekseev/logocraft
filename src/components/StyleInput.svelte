@@ -2,14 +2,13 @@
   import { createEventDispatcher } from 'svelte';
 
   let styles: string = '';
-  const dispatch = createEventDispatcher<{ submit: { styles: string } }>();
+  const dispatch = createEventDispatcher<{ change: { styles: string } }>();
 
   function submitStyles() {
-    dispatch('submit', { styles });
+    dispatch('change', { styles });
   }
 </script>
 
 <div>
-  <textarea bind:value={styles} placeholder="Введите дополнительные стили"></textarea>
-  <button on:click={submitStyles}>Применить стили</button>
+  <textarea on:input={submitStyles} class="pane editable" bind:value={styles} placeholder=".customProperty"></textarea>
 </div>
