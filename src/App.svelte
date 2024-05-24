@@ -50,7 +50,7 @@ You are the world's best expert full-stack programmer, recognized as a Google L5
   let cssCode: string = '';
   let loading: boolean = false;
 
-  function extractHtmlContent(input) {
+  function extractHtmlContent(input: string) {
     // Регулярное выражение для поиска подстроки "```html" и извлечения всех символов до подстроки "```"
     const regex = /```html([\s\S]*?)(```|$)/;
     const match = input.match(regex);
@@ -67,11 +67,11 @@ You are the world's best expert full-stack programmer, recognized as a Google L5
   async function handleChatSubmit(event: CustomEvent<{ prompt: string }>) {
     const { prompt } = event.detail;
     // Пожалуйста, не забирайте наш ключик :).
-    const test = '';
+    const apiKey = 'sk-proj-vM1GG8k0SBfYwdzTfJuWT3BlbkFJvoamplonuCnWWZ98iMWl';
     loading = true;
 
     const openai = new OpenAI({
-      apiKey: test,
+      apiKey,
       dangerouslyAllowBrowser: true,
     });
 
@@ -119,6 +119,7 @@ You are the world's best expert full-stack programmer, recognized as a Google L5
 
 <main>
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 

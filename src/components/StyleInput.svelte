@@ -24,6 +24,4 @@
     placeholder={"Введите стили"}
     useTab={true}
   ></CodeMirror>
-  <!-- <textarea placeholder="Введите дополнительные стили"></textarea> -->
-  <!-- <button on:click={submitStyles}>Применить стили</button> -->
 </div>
