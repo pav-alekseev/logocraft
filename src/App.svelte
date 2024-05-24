@@ -50,7 +50,7 @@ You are the world's best expert full-stack programmer, recognized as a Google L5
   let cssCode: string = '';
   let loading: boolean = false;
 
-  function extractHtmlContent(input) {
+  function extractHtmlContent(input: string) {
     // Регулярное выражение для поиска подстроки "```html" и извлечения всех символов до подстроки "```"
     const regex = /```html([\s\S]*?)(```|$)/;
     const match = input.match(regex);
@@ -71,7 +71,7 @@ You are the world's best expert full-stack programmer, recognized as a Google L5
     loading = true;
 
     const openai = new OpenAI({
-      apiKey: test,
+      apiKey,
       dangerouslyAllowBrowser: true,
     });
 
