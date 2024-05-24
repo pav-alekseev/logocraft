@@ -97,7 +97,7 @@ button:focus-visible {
 }
 
 .paragraph {
-    margin-top: 32px;
+    margin-top: 36px;
 
     opacity: 0;
     transition: opacity 1s ease;
@@ -134,4 +134,8 @@ button:focus-visible {
     background: linear-gradient(to right, #f32170, #ff6b08,#cf23cf, #eedd44);
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
+}
+
+.auto-width {
+    width: auto;
 }
