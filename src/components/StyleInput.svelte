@@ -10,5 +10,5 @@
 </script>
 
 <div>
-  <textarea on:input={submitStyles} class="pane editable" bind:value={styles} placeholder=".customProperty"></textarea>
+  <textarea on:input={submitStyles} class="pane editable" bind:value={styles} placeholder={".customProperty {}"}></textarea>
 </div>

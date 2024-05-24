@@ -47,10 +47,14 @@
       });
 
       for await (const chunk of stream) {
+        const totalText = chatGptResponse.html + chunk.choices[0]?.delta?.content || '';
+
         chatGptResponse = {
-          html: chatGptResponse.html + chunk.choices[0]?.delta?.content || '',
+          html: totalText,
           cleanHtmlCode: '',
         };
+
+        chatGptResponse.cleanHtmlCode = '123123';
       }
 
       // ```html
@@ -112,6 +116,10 @@
 
     <div class="column">
       <div class="sticky">
+        <div class="block">
+          <div class="title">Таймер: 04:03</div>
+        </div>
+
         <div class="block">
           <div class="title">Эталон:</div>
           <Reference/>
