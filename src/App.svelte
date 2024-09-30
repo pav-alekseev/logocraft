@@ -3,7 +3,7 @@
 
   import Logo from "./components/Logo.svelte";
   import ChatInput from "./components/ChatInput.svelte";
-  import StyleInput from "./components/StyleInput.svelte";
+  // import StyleInput from "./components/StyleInput.svelte";
   import CodeDisplay from "./components/CodeDisplay.svelte";
   import Reference from "./components/Reference.svelte";
   import Loader from "./components/Loader.svelte";
@@ -63,13 +63,13 @@ You are the world's best expert full-stack programmer, recognized as a Google L5
     }
   }
 
-  let apiKey;
+  let apiKey: string;
   const currentUrl = window.location.href;
   const url = new URL(currentUrl);
   const params = new URLSearchParams(url.search);
 
   if (params.has('apiKey')) {
-    apiKey = params.get('apiKey');
+    apiKey = params.get('apiKey')!;
   }
 
 
@@ -158,10 +158,10 @@ You are the world's best expert full-stack programmer, recognized as a Google L5
         <CodeDisplay {htmlCode} />
       </div>
 
-      <div class="paragraph" class:visible={htmlCode && !loading}>
+      <!-- <div class="paragraph" class:visible={htmlCode && !loading}>
         <div class="title">Дополнительный CSS:</div>
         <StyleInput on:change={handleStyleSubmit} />
-      </div>
+      </div> -->
     </div>
 
     <div class="column">

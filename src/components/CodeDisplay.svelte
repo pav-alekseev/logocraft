@@ -39,6 +39,6 @@
 <style>
   .content {
     text-align: left;
-    width: auto;
+    width: 850px;
   }
 </style>
