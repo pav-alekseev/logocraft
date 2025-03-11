@@ -4,6 +4,7 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [svelte()],
+  base: '/logocraft/',
   resolve: {
     alias: {
       '@codemirror/lang-css': path.resolve(__dirname, 'node_modules/@codemirror/lang-css'),
