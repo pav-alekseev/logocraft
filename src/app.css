@@ -1,13 +1,8 @@
 @import "./prism-onedark.css";
 
 body {
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    font-family: -apple-system, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, 'Helvetica Neue', 'Helvetica', roboto, arial, sans-serif;
+    font-weight: 590;
 
     margin: 0;
     min-width: 320px;
@@ -15,10 +10,10 @@ body {
 }
 
 :root {
-    background-color: #1d1d1d;
+    background-color: #18181a;
     color: #fff;
 
-    --accent-color: #F70;
+    --accent-color: rgb(255, 109, 46);
     --content-area-color: #282c34;
 
     --border-radius: 30px;
@@ -32,35 +27,37 @@ body {
 }
 
 button {
-    border-radius: 40px;
+    border-radius: 16px;
     background-color: var(--accent-color);
 
     border: 1px solid transparent;
     color: #FFF;
 
-    padding: 12px 42px;
-
+    height: 60px;
+    padding: 16px 32px;
+    
+    box-shadow: 0px 12px 28px 0px rgba(160, 42, 1, 0.23922);
+    font-family: -apple-system, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, 'Helvetica Neue', 'Helvetica', roboto, arial, sans-serif;
     text-align: center;
     font-size: 20px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+    font-weight: 590;
+    line-height: 20px;
     cursor: pointer;
-    transition: border-color 0.25s;
+    transition: background-color 0.25s;
 }
 
 button:hover {
-    border-color: var(--accent-color);
+    opacity: 0.8;
 }
 
 button:focus,
 button:focus-visible {
-    border: 1px solid var(--accent-color);
-    /*outline: 4px auto -webkit-focus-ring-color;*/
+    opacity: 0.9;
+    outline: none;
 }
 
 .pane {
-    background-color: var(--content-area-color);
+    background-color: rgb(41, 41, 43);
     border-radius: var(--border-radius);
     padding: 32px;
 
@@ -91,14 +88,7 @@ button:focus-visible {
     border: 2px solid var(--accent-color);
 }
 
-
-.block + .block {
-    margin-top: 32px;
-}
-
 .paragraph {
-    margin-top: 36px;
-
     opacity: 0;
     transition: opacity 1s ease;
 }
@@ -109,7 +99,6 @@ button:focus-visible {
 
 .title {
     font-size: var(--title-size);
-    font-weight: 600;
 
     text-align: left;
 

@@ -72,7 +72,6 @@ You are the world's best expert full-stack programmer, recognized as a Google L5
     apiKey = params.get('apiKey')!;
   }
 
-
   async function handleChatSubmit(event: CustomEvent<{ prompt: string }>) {
     const { prompt } = event.detail;
     loading = true;
@@ -145,48 +144,31 @@ You are the world's best expert full-stack programmer, recognized as a Google L5
   <Logo />
 
   <div class="layout">
-    <div class="column main">
+    <div class="row left">
       <div>
         <div class="block">
           <div class="title">Запрос к нейросети:</div>
           <ChatInput on:submit={handleChatSubmit} />
         </div>
       </div>
-
-      <div id="gpt-result" class="paragraph" class:visible={htmlCode}>
-        <div class="title fancy">Модель сгенерировала:</div>
-        <CodeDisplay {htmlCode} />
+    </div>
+    <div class="row right">
+      <div class="block">
+        <div class="title">Эталон:</div>
+        <Reference />
       </div>
 
-      <!-- <div class="paragraph" class:visible={htmlCode && !loading}>
-        <div class="title">Дополнительный CSS:</div>
-        <StyleInput on:change={handleStyleSubmit} />
-      </div> -->
-    </div>
+      <div class="block">
+        <div class="title" class:blinking={loading}>
+          Результат:
 
-    <div class="column">
-      <div class="sticky">
-        <div class="block">
-          <div class="title">Эталон:</div>
-          <Reference />
+          {#if loading}
+            <Loader />
+          {/if}
         </div>
-
-        <div class="block">
-          <div class="title" class:blinking={loading}>
-            Результат:
-
-            {#if loading}
-              <Loader />
-            {/if}
-          </div>
-          <div class:waiting={loading}>
-            <Preview htmlCode={cleanHtmlCode} {cssCode} />
-          </div>
+        <div class:waiting={loading}>
+          <Preview htmlCode={cleanHtmlCode} {cssCode} />
         </div>
-
-<!--        <div class="block">-->
-<!--          <div class="title">Таймер: 04:03</div>-->
-<!--        </div>-->
       </div>
     </div>
   </div>
@@ -196,19 +178,16 @@ You are the world's best expert full-stack programmer, recognized as a Google L5
   .layout {
     display: flex;
     justify-content: space-between;
+    gap: 40px;
   }
 
-  .column.main {
+  .left {
     flex-grow: 1;
   }
 
-  .column + .column {
-    margin-left: 64px;
-  }
-
-  .sticky {
-    position: sticky;
-    top: 16px;
+  .right {
+    display: flex;
+    gap: 20px;
   }
 
   .waiting {

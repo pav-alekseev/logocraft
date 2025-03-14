@@ -1,17 +1,15 @@
 <script>
     let previewIndex = 1;
-    let customImage;
 
     const currentUrl = window.location.href;
     const url = new URL(currentUrl);
     const params = new URLSearchParams(url.search);
+    const numberOfImages = 9;
 
     if (params.has('image')) {
-        previewIndex = params.get('image');
-    }
-
-    if (params.has('custom')) {
-        customImage = params.get('custom');
+        previewIndex = +(params.get('image') || 1);
+    } else {
+        previewIndex = Math.floor(Math.random() *  numberOfImages) + 1;
     }
 </script>
 
@@ -57,8 +55,10 @@
     .image-8 {
         background-image: url('../assets/8.svg');
     }
+
+    .image-9 {
+        background-image: url('../assets/9.svg');
+    }
 </style>
 
-<div class="reference image-{previewIndex}"
-    style="{customImage ? `background-image: url(${customImage})` : ''}"
-></div>
+<div class="reference image-{previewIndex}" />

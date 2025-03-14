@@ -10,16 +10,20 @@
 </script>
 
 <style>
-  .button {
+  .buttons {
     margin-top: 16px;
   }
 
-  .button:hover {
-    opacity: 0.95;
+  .update-button {
+    background-color: rgb(41, 41, 43);
+    box-shadow: none;
   }
 </style>
 
 <div>
   <textarea on:submit={submitPrompt} class="pane editable" bind:value={prompt} placeholder="Сгенерируй квадрат, расположенный ..."></textarea>
-  <button class="button" on:click={submitPrompt}>Сгенерировать</button>
+  <div class="buttons">
+    <button on:click={submitPrompt}>Сгенерировать</button>
+    <button class="update-button" on:click={() => location.reload()}>Обновить картинку</button>
+  </div>
 </div>
